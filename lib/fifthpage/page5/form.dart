@@ -72,7 +72,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(50, 10, 50, 40),
+            padding: const EdgeInsets.fromLTRB(50, 10, 50, 100 * 0.75),
             child: Text(
               'EDIT ',
               style: GoogleFonts.poppins(
@@ -96,23 +96,31 @@ class MyCustomFormState extends State<MyCustomForm> {
                       double.infinity, //width of button equal to parent widget
 
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: searching == true
-                            ? Color.fromARGB(255, 255, 141, 59)
-                            : Color.fromARGB(248, 0, 0, 0),
-                        // primary: Color.fromARGB(255, 255, 141, 59),
-                        minimumSize: const Size.fromHeight(50), // NEW
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled))
+                            return Color.fromARGB(255, 0, 0, 0);
+                          return Color.fromARGB(255, 255, 141,
+                              59); // Use the component's default.
+                        },
                       ),
-                      child: Text(
-                        'DONE',
-                        style: GoogleFonts.poppins(
+                    ),
+                    onPressed: searching
+                        ? () {
+                            // Navigator.pushNamed(context, '/fifth');
+                          }
+                        : null,
+
+                    child: Text(
+                      'DONE',
+                      style: GoogleFonts.poppins(
                           fontSize: 22,
                           fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      onPressed: () {}
-                      //parameters of Button class
-                      ))),
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                    ),
+                    //parameters of Button class
+                  ))),
         ],
       ),
     );

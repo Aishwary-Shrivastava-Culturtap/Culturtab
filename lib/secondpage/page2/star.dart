@@ -53,12 +53,12 @@ final ratings = Container(
     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Container(
-        padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
         child: stars,
       ),
       Container(
         // alignment: Alignment(0, 7),
-        padding: const EdgeInsets.fromLTRB(50, 6, 50, 10),
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
         child: Text(
           'SIGNUP ',
           style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w900),
@@ -74,7 +74,7 @@ final ratings = Container(
       ),
       Container(
         // alignment: Alignment(0, 7),
-        padding: const EdgeInsets.fromLTRB(50, 3, 0, 10),
+        padding: const EdgeInsets.fromLTRB(50, 3, 0, 100 * 0.012),
         child: Text(
           'Start your Adventure now ! ',
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w400),

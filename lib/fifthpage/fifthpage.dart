@@ -72,7 +72,7 @@ class FifthPage extends StatelessWidget {
           //   onPressed: () {},
           // ),
 
-          toolbarHeight: 120.2,
+          toolbarHeight: 105,
           elevation: 0.00,
 
           title: Image.asset('img/1/logo.png', fit: BoxFit.cover),
@@ -105,8 +105,8 @@ class FifthPage extends StatelessWidget {
   }
 }
 
-final thumbnail = Container(
-  padding: const EdgeInsets.fromLTRB(50, 16, 50, 10),
+final thumbnail = Center(
+  // padding: const EdgeInsets.fromLTRB(50, 16, 50, 10),
   child: const Image(
     image: AssetImage(
       'img/5/map.png',

@@ -95,9 +95,13 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: TextField(
               controller: controller,
               onChanged: (String value) async {
-                if (value != Null) {
+                if (value != '') {
                   setState(() {
                     searching = true;
+                  });
+                } else {
+                  setState(() {
+                    searching = false;
                   });
                 }
               },
@@ -117,34 +121,35 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
               padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
               child: SizedBox(
-                  height: 50, //height of button
-                  // width: 300, //width of button
-                  width:
-                      double.infinity, //width of button equal to parent widget
+                height: 50, //height of button
+                // width: 300, //width of button
+                width: double.infinity, //width of button equal to parent widget
 
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: searching == true
-                            ? Color.fromARGB(255, 255, 141, 59)
-                            : Color.fromARGB(248, 0, 0, 0),
-
-                        // backgroundColor: Color.fromARGB(255, 255, 141, 59),
-                        minimumSize: const Size.fromHeight(50), // NEW
-                      ),
-                      child: Text(
-                        'NEXT',
-                        style: GoogleFonts.poppins(
-                            fontSize: 22, fontWeight: FontWeight.w900),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/second');
-                      })
-
-                  // This message will be printed to the console
-                  )
-
-              //parameters of Button class
-              ),
+                child: ElevatedButton(
+                  onPressed: searching
+                      ? () {
+                          Navigator.pushNamed(context, '/second');
+                        }
+                      : null,
+                  child: Text(
+                    'NEXT',
+                    style: GoogleFonts.poppins(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.disabled))
+                          return Color.fromARGB(255, 0, 0, 0);
+                        return Color.fromARGB(
+                            255, 255, 141, 59); // Use the component's default.
+                      },
+                    ),
+                  ),
+                ),
+              ))
         ],
       ),
     );

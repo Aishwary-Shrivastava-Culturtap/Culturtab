@@ -52,7 +52,7 @@ final ratings = Container(
     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Container(
-        padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+        padding: const EdgeInsets.fromLTRB(50, 100*0.0126, 50, 10),
         child: stars,
       ),
       // Container(

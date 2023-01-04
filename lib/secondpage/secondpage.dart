@@ -9,9 +9,9 @@ class Secondpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    thumbnail(h) => Container(
-          padding:
-              const EdgeInsets.fromLTRB(100 * 0.13, 100 * 0.05, 100 * 0.13, 0),
+    thumbnail(h) => Center(
+          // padding:
+          //     const EdgeInsets.fromLTRB(100 * 0.13, 100 * 0.05, 100 * 0.13, 0),
           child: Image(
             image: AssetImage(
               'img/2/car.png',
@@ -120,7 +120,7 @@ class Secondpage extends StatelessWidget {
         //   onPressed: () {},
         // ),
 
-        toolbarHeight: 120.2,
+        toolbarHeight: 105,
         elevation: 0.00,
 
         title: Image.asset('img/1/logo.png', fit: BoxFit.cover),

@@ -14,9 +14,35 @@ class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
   bool searching = false;
+    bool correct = false;
+
 
   @override
   Widget build(BuildContext context) {
+
+
+    bool isValidPhoneNumber(String string) {
+      // Null or empty string is invalid phone number
+      if (string == null && string.isEmpty) {
+        return false;
+      }
+      if (controller.text.length != 4) {
+        return false;
+      }
+
+      // You may need to change this pattern to fit your requirement.
+      // I just copied the pattern from here: https://regexr.com/3c53v
+      const pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+      final regExp = RegExp(pattern);
+
+      if (!regExp.hasMatch(string)) {
+        return false;
+      }
+      return true;
+    }
+
+
+
     // Build a Form widget using the _formKey created above.
     return Container(
       key: _formKey,
@@ -25,7 +51,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(50, 1, 50, 1),
+            padding: const EdgeInsets.fromLTRB(50, 1, 50, 100 * 0.4),
             child: Text(
               'Earn by assisting nearby tourist ! ',
               style: GoogleFonts.poppins(
@@ -41,7 +67,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(50, 43, 50, 4),
+            padding: const EdgeInsets.fromLTRB(50, 100 * 0.3026, 50, 4),
             child: Text(
               'ENTER OTP',
               style: GoogleFonts.poppins(
@@ -79,6 +105,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                 if (value != Null) {
                   setState(() {
                     searching = true;
+
+                    isValidPhoneNumber(controller.text)
+                        ? correct = true
+                        : correct = false;
                   });
                 }
               },
@@ -92,7 +122,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(50, 10, 50, 2),
+            padding: const EdgeInsets.fromLTRB(50, 100 * 0.226, 50, 2),
             child: Text(
               'Did\'t receive it ? ',
               style: GoogleFonts.poppins(
@@ -111,7 +141,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           // ),
 
           Container(
-              padding: const EdgeInsets.fromLTRB(50, 2, 50, 10),
+              padding: const EdgeInsets.fromLTRB(50, 2, 50, 100 * 0.36),
               child: Text(
                 'RESEND',
                 style: GoogleFonts.poppins(
@@ -127,20 +157,30 @@ class MyCustomFormState extends State<MyCustomForm> {
           // ),
 
           Container(
-              padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+              padding:
+                  const EdgeInsets.fromLTRB(50, 100 * 0.0126, 50, 100 * 0.0126),
               child: SizedBox(
-                height: 50, //height of button
-                // width: 300, //width of button
-                width: double.infinity, //width of button equal to parent widget
+                  height: 50, //height of button
+                  // width: 300, //width of button
+                  width:
+                      double.infinity, //width of button equal to parent widget
 
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: searching == true
-                          ? Color.fromARGB(255, 255, 141, 59)
-                          : Color.fromARGB(248, 0, 0, 0),
-                      // primary: Color.fromARGB(255, 255, 141, 59),
-                      minimumSize: const Size.fromHeight(50), // NEW
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled))
+                            return Color.fromARGB(255, 0, 0, 0);
+                          return Color.fromARGB(255, 255, 141,
+                              59); // Use the component's default.
+                        },
+                      ),
                     ),
+                    onPressed: correct
+                        ? () {
+                            Navigator.pushNamed(context, '/fifth');
+                          }
+                        : null,
                     child: Text(
                       'NEXT',
                       style: GoogleFonts.poppins(
@@ -148,10 +188,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontWeight: FontWeight.w900,
                           color: Color(0xffffffff)),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/fifth');
-                    }),
-              ))
+                  )))
         ],
       ),
     );
